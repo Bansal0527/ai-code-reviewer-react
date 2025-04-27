@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import "prismjs/themes/prism-tomorrow.css"
+import { fetchWithCsrf } from "../utils/csrf";import "prismjs/themes/prism-tomorrow.css"
 import Editor from "react-simple-code-editor"
-import prism from "prismjs"
-import Markdown from "react-markdown"
-import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github-dark.css";
+import { fetchWithCsrf } from "../utils/csrf";import prism from "prismjs"
+import { fetchWithCsrf } from "../utils/csrf";import Markdown from "react-markdown"
+import { fetchWithCsrf } from "../utils/csrf";import rehypeHighlight from "rehype-highlight";
+import { fetchWithCsrf } from "../utils/csrf";import "highlight.js/styles/github-dark.css";
 import axios from 'axios'
-import './App.css'
+import { fetchWithCsrf } from "../utils/csrf";import './App.css'
 
 
 function App() {
