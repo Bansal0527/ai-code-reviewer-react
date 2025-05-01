@@ -3,7 +3,7 @@ const aiRoutes = require('./routes/ai.routes')
 const cors = require('cors')
 
 const app = express()
-
+const { cookieParser, csrfProtection } = require("./csrf-middleware");
 app.use(cors())
 
 
