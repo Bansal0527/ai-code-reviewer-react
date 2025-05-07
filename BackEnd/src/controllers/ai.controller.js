@@ -1,17 +1,45 @@
-const aiService = require("../services/ai.service")
+const { Configuration, OpenAIApi } = require("openai");
+const { OPENAI_API_KEY } = require("../config/config");
 
+const configuration = new Configuration({
+  apiKey: OPENAI_API_KEY,
+});
 
-module.exports.getReview = async (req, res) => {
+const openai = new OpenAIApi(configuration);
 
-    const code = req.body.code;
+const reviewCode = async (req, res) => {
+  try {
+    const { code } = req.body;
+    const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a code reviewer. Review the following code and provide feedback.",
+        },
+        {
+          role: "user",
+          content: code,
+        },
+      ],
+    });
 
-    if (!code) {
-        return res.status(400).send("Prompt is required");
-    }
+    // Send JSON response instead of directly writing to response
+    res.json({ 
+      success: true, 
+      data: response.data.choices[0].message.content 
+    });
+  } catch (error) {
+    console.error("Error reviewing code:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error reviewing code", 
+      error: error.message 
+    });
+  }
+};
 
-    const response = await aiService(code);
-
-
-    res.send(response);
-
-}
+module.exports = {
+  reviewCode,
+};
